@@ -181,10 +181,10 @@ public class ARMAssembler extends NativeStream implements ARMConstants {
 
     public class BranchInstrInfo {
         
-        private int condition;
-        private int opCode;
-        private int linkBit;
-        private int offset;
+        public int cond;
+        private final int opCode = 5;
+        public int linkBit;
+        public int offset;
         
         public BranchInstrInfo()
         {
@@ -195,11 +195,11 @@ public class ARMAssembler extends NativeStream implements ARMConstants {
         {
             int result = 0;
             
+			result = result | (branchInstrInfo.cond << 28);
+			result = result | (branchInstrInfo.opCode << 26);
+			result = result | (branchInstrInfo.linkBit << 25);
             result = result | (branchInstrInfo.offset);
-            result = result | (branchInstrInfo.linkBit << 25);
-            result = result | (branchInstrInfo.opCode << 26);
-            result = result | (branchInstrInfo.condition << 28);
-            
+                      
             return result;
         }        
     }
